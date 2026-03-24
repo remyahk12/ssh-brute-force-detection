@@ -1,0 +1,24 @@
+# Splunk Query: Full SSH Event Summary
+# Description: Complete breakdown of all SSH event types, counts, and outcomes
+# Source: ssh_logs_new.json
+# Usage: Run in Splunk Search with earliest=0 latest=now
+
+source="ssh_logs_new.json"
+| spath
+| eval src_ip='id.orig_h', dst_ip='id.resp_h'
+| stats count by event_type, username, auth_success
+| sort - count
+
+# --- Alternative: per-IP threat summary ---
+# source="ssh_logs_new.json"
+# | spath
+# | eval src_ip='id.orig_h'
+# | stats
+#     count as total_events,
+#     sum(eval(if(event_type="Successful SSH Login",1,0))) as successes,
+#     sum(eval(if(event_type="Failed SSH Login",1,0))) as failures,
+#     sum(eval(if(event_type="Multiple Failed Authentication Attempts",1,0))) as multi_failures,
+#     sum(eval(if(event_type="Connection Without Authentication",1,0))) as no_auth_conns,
+#     sum(auth_attempts) as total_attempts
+#     by src_ip
+# | sort - total_attempts

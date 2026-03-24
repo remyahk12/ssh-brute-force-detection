@@ -1,0 +1,15 @@
+# Splunk Query: Authorized SSH Logins
+# Description: Find all successful SSH login events
+# Source: ssh_logs_new.json
+# Usage: Run in Splunk Search with earliest=0 latest=now
+
+source="ssh_logs_new.json"
+| spath
+| search auth_success="true"
+| eval
+    src_ip='id.orig_h',
+    dst_ip='id.resp_h',
+    src_port='id.orig_p',
+    dst_port='id.resp_p'
+| table _time, username, src_ip, src_port, dst_ip, dst_port, auth_attempts, event_type
+| sort - _time

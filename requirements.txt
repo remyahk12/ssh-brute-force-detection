@@ -1,0 +1,6 @@
+# No external dependencies required for core scripts.
+# Standard library only: json, argparse, csv, collections, datetime
+
+# Optional: for extended analysis or Splunk API integration
+# splunk-sdk>=1.7.0
+# pandas>=2.0.0

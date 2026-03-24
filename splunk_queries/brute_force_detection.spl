@@ -1,0 +1,25 @@
+# Splunk Query: Brute-Force Detection (Success After Multiple Failures)
+# Description: Identifies IPs that had multiple failed auth attempts AND
+#              eventually achieved a successful login — classic brute-force pattern.
+# Source: ssh_logs_new.json
+# Usage: Run in Splunk Search with earliest=0 latest=now
+
+source="ssh_logs_new.json"
+| spath
+| eval src_ip='id.orig_h', dst_ip='id.resp_h'
+| stats
+    values(event_type) as events,
+    values(auth_success) as auth_results,
+    sum(auth_attempts) as total_attempts,
+    values(dst_ip) as destinations
+    by src_ip, username
+| where
+    mvfind(events, "Multiple Failed") >= 0
+    AND mvfind(events, "Successful") >= 0
+| eval risk_level=case(
+    total_attempts >= 500, "High",
+    total_attempts >= 300, "Medium",
+    true(), "Low"
+)
+| sort - total_attempts
+| table src_ip, username, total_attempts, risk_level, destinations, events
