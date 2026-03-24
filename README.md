@@ -1,22 +1,22 @@
-# 🔐 SSH Brute-Force Detection with Claude AI + Splunk
+#  SSH Brute-Force Detection with Claude AI + Splunk
 
 > **Automated SSH log analysis using Claude AI (via claude.ai) to detect brute-force attacks and unauthorized access on Linux servers.**
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 This project demonstrates how **Claude AI** was used to fully automate the detection of SSH-based threats by querying a Splunk SIEM, correlating events, and surfacing actionable security findings — with zero manual SPL writing.
 
 **What was detected:**
-- ✅ All authorized SSH logins
-- 🚨 Successful logins preceded by multiple failed attempts (brute-force indicators)
-- 🔎 Connections without authentication
-- 👤 High-risk accounts (`root`, `admin`) being targeted
+-  All authorized SSH logins
+-  Successful logins preceded by multiple failed attempts (brute-force indicators)
+-  Connections without authentication
+-  High-risk accounts (`root`, `admin`) being targeted
 
 ---
 
-## 🤖 How Claude AI Automated This
+## How Claude AI Automated This
 
 Claude AI was connected to Splunk via an **MCP (Model Context Protocol)** server and performed the following autonomously:
 
@@ -33,7 +33,7 @@ Claude AI was connected to Splunk via an **MCP (Model Context Protocol)** server
 
 ---
 
-## 🚨 Key Findings
+##  Key Findings
 
 From `ssh_logs_new.json` (host: `LinuxServer`, date: `2025-04-24`):
 
@@ -49,13 +49,13 @@ From `ssh_logs_new.json` (host: `LinuxServer`, date: `2025-04-24`):
 ### Risk Distribution
 | Risk Level | Threshold | Count |
 |------------|-----------|-------|
-| 🔴 High    | 500+ attempts | 13 IPs |
-| 🟡 Medium  | 300–499 attempts | 22 IPs |
-| 🟢 Low     | < 300 attempts | 15 IPs |
+|  High    | 500+ attempts | 13 IPs |
+|  Medium  | 300–499 attempts | 22 IPs |
+|  Low     | < 300 attempts | 15 IPs |
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 ssh-detection-project/
@@ -112,7 +112,7 @@ python scripts/analyze_ssh_logs.py --input sample_data/ssh_logs_sample.json
 
 ---
 
-## 🧠 Claude AI Integration
+##  Claude AI Integration
 
 Claude was connected to Splunk using the **Splunk MCP Server**. This enabled Claude to:
 - Call `search_splunk` with natural-language-driven SPL
@@ -127,7 +127,7 @@ Claude autonomously translated this into a multi-step Splunk correlation query a
 
 ---
 
-## 📊 Sample Log Format
+##  Sample Log Format
 
 Logs follow the [Zeek](https://zeek.org/) SSH log format (JSON):
 
@@ -149,7 +149,7 @@ Logs follow the [Zeek](https://zeek.org/) SSH log format (JSON):
 
 ---
 
-## 🔒 Defensive Recommendations
+## Defensive Recommendations
 
 Based on the findings, the following mitigations are recommended:
 
@@ -170,13 +170,13 @@ Based on the findings, the following mitigations are recommended:
 
 ---
 
-## 📜 License
+##  License
 
 MIT License — free to use, modify, and share.
 
 ---
 
-## 🙏 Credits
+## Credits
 
 - **Detection automation**: [Claude AI](https://claude.ai) by Anthropic
 - **SIEM platform**: [Splunk](https://www.splunk.com/)
