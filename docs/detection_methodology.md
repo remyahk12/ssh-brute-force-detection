@@ -76,9 +76,9 @@ A single IP cycling through failed attempts and ultimately succeeding strongly i
 
 | Risk Level | Criteria | Recommended Action |
 |------------|----------|--------------------|
-| 🔴 High | 500+ total attempts | Immediate block + credential reset |
-| 🟡 Medium | 300–499 total attempts | Block + investigate |
-| 🟢 Low | < 300 total attempts | Monitor + alert |
+| High | 500+ total attempts | Immediate block + credential reset |
+| Medium | 300–499 total attempts | Block + investigate |
+| Low | < 300 total attempts | Monitor + alert |
 
 ---
 
